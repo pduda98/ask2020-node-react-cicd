@@ -7,8 +7,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - run
-        command: cd server && npm test
+      - run: cd server && npm test
 workflows:
   build-and-test:
     jobs:
