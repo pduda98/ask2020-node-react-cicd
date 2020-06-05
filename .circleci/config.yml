@@ -3,13 +3,15 @@ orbs:
   node: circleci/node@3.0.0
 jobs:
   build-and-test-server:
-    executor: node/default
+    executor:
+      name:  node/default
     steps:
       - checkout
       - run: cd server && npm install
       - run: cd server && npm test
   build-and-test-client
-    executor: node/default
+    executor: 
+      name: node/default
     steps:
       - checkout
       - run: cd client && npm install
