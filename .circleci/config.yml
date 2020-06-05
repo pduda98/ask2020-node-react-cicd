@@ -14,7 +14,7 @@ jobs:
       - run:
           command: |
             echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
-            sudo docker build ./server -t pduda/cicd-server
+            sudo docker build ./client -t pduda/cicd-server
             sudo docker push pduda/cicd-server
   build-and-test-server:
     executor:
