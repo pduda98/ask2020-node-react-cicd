@@ -2,6 +2,30 @@ version: 2.1
 orbs:
   node: circleci/node@3.0.0
 jobs:
+  deploy:
+        environment:
+            IMAGE_NAME: pduda98/ask2020-node-react-cicd
+        docker:
+            - image: circleci/buildpack-deps:stretch
+        steps:
+            - checkout
+            - setup_remote_docker
+            - run:
+                name: Build docker image
+                command: cd server && docker build -t $IMAGE_NAME:server .
+            - run:
+                name: Publish docker image to docker hub
+                command: |
+                    echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                    docker push $IMAGE_NAME:server
+            - run:
+                name: Build docker image
+                command: cd client && docker build -t $IMAGE_NAME:client .
+            - run:
+                name: Publish docker image to docker hub
+                command: |
+                    echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+                    docker push $IMAGE_NAME:client
   build-and-test-server:
     executor:
       name:  node/default
@@ -21,3 +45,4 @@ workflows:
     jobs:
       - build-and-test-server
       - build-and-test-client
+      - deploy
