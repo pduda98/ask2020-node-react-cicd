@@ -11,13 +11,13 @@ jobs:
             - checkout
             - setup_remote_docker
             - run:
-                command: cd server && docker build -t $IMAGE_NAME:server .
+                command: cd server && docker build -t $DOCKER_NAME:server .
             - run:
                 command: |
                     echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
                     docker push $DOCKER_NAME:server
             - run:
-                command: cd client && docker build -t $IMAGENAME:client .
+                command: cd client && docker build -t $DOCKER_NAME:client .
             - run:
                 command: |
                     echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
