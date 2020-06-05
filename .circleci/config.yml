@@ -15,13 +15,13 @@ jobs:
             - run:
                 command: |
                     echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
-                    docker push server
+                    docker push $DOCKER_NAME:server
             - run:
                 command: cd client && docker build -t $IMAGENAME:client .
             - run:
                 command: |
                     echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
-                    docker push client
+                    docker push $DOCKER_NAME:client
   build-and-test-server:
     executor:
       name:  node/default
