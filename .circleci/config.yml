@@ -11,21 +11,17 @@ jobs:
             - checkout
             - setup_remote_docker
             - run:
-                name: Build docker image
                 command: cd server && docker build -t $IMAGE_NAME:server .
             - run:
-                name: Publish docker image to docker hub
                 command: |
-                    echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                    docker push $IMAGE_NAME:server
+                    echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
+                    docker push server
             - run:
-                name: Build docker image
-                command: cd client && docker build -t $IMAGE_NAME:client .
+                command: cd client && docker build -t $IMAGENAME:client .
             - run:
-                name: Publish docker image to docker hub
                 command: |
-                    echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-                    docker push $IMAGE_NAME:client
+                    echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
+                    docker push client
   build-and-test-server:
     executor:
       name:  node/default
