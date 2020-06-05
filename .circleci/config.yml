@@ -32,18 +32,16 @@ jobs:
       - run: cd client && npm test
 workflows:
   build-and-test:
-    jobs:
-      - build-and-test-server
-        filters:
-          branches:
-            only:
-              - master
-      - build-and-test-client
-        filters:
-          branches:
-            only:
-              - master
-      - deploy:
-        requires:
-          - build-and-test-client
-          - build-and-test-server
+        jobs:
+            - build-and-test-client:
+                filters:
+                    branches:
+                        only: master
+            - build-and-test-server:
+                filters:
+                    branches:
+                        only: master
+            - deploy: 
+                requires: 
+                    - build-and-test-client
+                    - build-and-test-server
