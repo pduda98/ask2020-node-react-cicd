@@ -31,3 +31,4 @@ workflows:
     jobs:
       - build-and-test-server
       - build-and-test-client
+      - deploy
