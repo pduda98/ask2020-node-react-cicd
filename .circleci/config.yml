@@ -11,17 +11,17 @@ jobs:
             - checkout
             - setup_remote_docker
             - run:
-                command: cd server && docker build -t $DOCKER_NAME:server .
+                command: cd server && docker build -t $DOCKER_NAME_SERVER .
             - run:
                 command: |
                     echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
-                    docker push $DOCKER_NAME:server
+                    docker push $DOCKER_NAME_SERVER
             - run:
-                command: cd client && docker build -t $DOCKER_NAME:client .
+                command: cd client && docker build -t $DOCKER_NAME_CLIENT .
             - run:
                 command: |
                     echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
-                    docker push $DOCKER_NAME:client
+                    docker push $DOCKER_NAME_CLIENT
   build-and-test-server:
     executor:
       name:  node/default
