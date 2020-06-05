@@ -9,9 +9,13 @@ jobs:
       - run:
           command: |
             echo "$PASSWORD" | docker login -u "$NAME" --password-stdin
-            sudo docker build ./db -t pduda98/ask2020-node-react-cicd
-            sudo docker push pduda98/ask2020-node-react-cicd
-
+            sudo docker build ./client -t pduda98/cicd:client
+            sudo docker push pduda98/cicd:client
+      - run:
+          command: |
+            echo "$Password" | docker login -u "$NAME" --password-stdin
+            sudo docker build ./server -t pduda/cicd:server
+            sudo docker push pduda/cicd:server
   build-and-test-server:
     executor:
       name:  node/default
