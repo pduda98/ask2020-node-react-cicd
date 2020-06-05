@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run: cd server && npm install
       - run: cd server && npm test
-  build-and-test-client
+  build-and-test-client:
     executor: 
       name: node/default
     steps:
